@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const mongoDB = 'mongodb://localhost/restaurant'
 const Restaurant = require('../restaurant')
 const restaurantList = require('./restaurant.json').results
-
 mongoose.connect(mongoDB)
 
 const db = mongoose.connection

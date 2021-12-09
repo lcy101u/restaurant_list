@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars')
 const restaurantList = require('./models/seeds/restaurant.json')
 const mongoose = require('mongoose')
 const mongoDB = 'mongodb://localhost/restaurant'
+const Restaurant = require('./models/restaurant')
 const app = express()
 const port = 3000
 
@@ -24,7 +25,10 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public')) //告訴express靜態檔案是放在名為 public 的資料夾中
 
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results})
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', {restaurants}))
+    .catch(error => console.error(error))
 })
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() ===req.params.restaurant_id)
