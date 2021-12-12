@@ -8,6 +8,9 @@ Gather my favorite restaurants so far
 - Check all the restaurants
 - Restaurant details
 - Search restaurant via name or category
+- Add a restaurant
+- Edit a restaurant
+- Delete a restaurant
 
 
 ![feature gif](./public/img/feature.gif)
@@ -50,6 +53,8 @@ localhost:3000
 - Express-handlebars (5.3.4)
 - Bootstrap (4.6)
 - font-awesome (5.8.1)
+- mongoose (6.1.0)
+- mongoDB (6.14.11)
 
 ### Contributor
 
