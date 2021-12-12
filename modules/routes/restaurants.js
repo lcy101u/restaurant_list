@@ -4,7 +4,6 @@ const Restaurant = require('../../models/restaurant')
 
 router.get('/new', (req, res) => res.render('new'))
 router.post('/', (req, res) => {
-  console.log(req.body)
   return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
