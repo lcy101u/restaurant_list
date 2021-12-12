@@ -3,7 +3,7 @@
   <div class="card border-info">
     <h5 class="card-header"><i class="fas fa-utensils"></i> 新增一間餐廳</h5>
     <div class="card-body">
-      <form action="/restaurants/{{restaurant._id}}/edit" method="POST" novalidate>
+      <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
         <div class="input-group mb-3">
           <span class="input-group-text">中文&英文店名<span class="text-danger">*</span></span>
           <input type="text" class="form-control" placeholder="在島之後" name="name" value="{{restaurant.name}}" required />
