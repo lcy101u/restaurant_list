@@ -12,6 +12,7 @@ Gather my favorite restaurants so far
 - Add a restaurant
 - Edit a restaurant
 - Delete a restaurant
+- Sort by selection
 
 ![search gif](./public/img/search.gif)
 ![feature gif](./public/img/feature.gif)
