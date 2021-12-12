@@ -1,5 +1,6 @@
 # Restaurant List 
-![Main Page](./public/img/main.png)
+![Main Page](./public/img/Home.png)
+![Add Page](./public/img/Add.png)
 ## About
 Gather my favorite restaurants so far
 
