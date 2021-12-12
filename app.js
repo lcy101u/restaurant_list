@@ -6,6 +6,7 @@ const mongoDB = 'mongodb://localhost/restaurant'
 const Restaurant = require('./models/restaurant')
 const bodyParser = require('body-parser')
 const { redirect } = require('express/lib/response')
+const restaurant = require('./models/restaurant')
 const app = express()
 const port = 3000
 
@@ -18,6 +19,9 @@ db.on('error', () => {
 })
 db.once('open', () => {
   console.log('MongoDB connected!')
+})
+db.once('disconnected', () => {
+  console.lo('MongoDB disconnevted!')
 })
 //setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
@@ -46,12 +50,26 @@ app.get('/restaurants/:id', (req, res) => {
     .then((restaurant) => res.render('show', {restaurant}))
     .catch(error => console.error(error))
 })
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', {restaurant}))
+    .catch(error => console.error(error))
+})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.error(error))
+})
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase().trim()
   const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword) || restaurant.name_en.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword))
   console.log(restaurants, keyword)
   res.render('index', {restaurants, keyword})
 })
+
 //start and listening on the Express server
 app.listen(port , () => {
   console.log(`Express is listening on port ${port}`)
