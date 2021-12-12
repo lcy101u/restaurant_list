@@ -4,6 +4,8 @@ const restaurantList = require('./models/seeds/restaurant.json')
 const mongoose = require('mongoose')
 const mongoDB = 'mongodb://localhost/restaurant'
 const Restaurant = require('./models/restaurant')
+const bodyParser = require('body-parser')
+const { redirect } = require('express/lib/response')
 const app = express()
 const port = 3000
 
@@ -23,12 +25,19 @@ app.set('view engine', 'handlebars')
 
 //setting static files
 app.use(express.static('public')) //告訴express靜態檔案是放在名為 public 的資料夾中
-
+app.use(bodyParser.urlencoded({extended: true}))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => res.render('index', {restaurants}))
     .catch(error => console.error(error))
+})
+app.get('/restaurants/new', (req, res) => res.render('new'))
+app.post('/restaurants', (req, res) => {
+  console.log(req.body)
+  return Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
 })
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() ===req.params.restaurant_id)
