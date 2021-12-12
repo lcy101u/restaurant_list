@@ -12,7 +12,7 @@ Gather my favorite restaurants so far
 - Edit a restaurant
 - Delete a restaurant
 
-
+![search gif](./public/img/search.gif)
 ![feature gif](./public/img/feature.gif)
 
 ## Prerequisites
