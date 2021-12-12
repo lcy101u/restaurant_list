@@ -10,7 +10,14 @@ const port = 3000
 require('./config/mongoose')
 
 //setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
+app.engine('handlebars', exphbs({ 
+  defaultLayout: 'main',
+  helpers: {
+    compare: function (a, b) {
+      if(a === b) return 'selected'
+    }
+  }
+}))
 app.set('view engine', 'handlebars')
 
 //setting static files

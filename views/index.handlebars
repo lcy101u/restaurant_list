@@ -4,21 +4,19 @@
     <div class="search-bar-inner">
       <form action="/search" method="GET">
         <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="row">
-          <div class="col-8 input-group">
-            <input type="text" name="keyword" class="form-control form-control-lg" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-              value="{{keyword}}" aria-describedby="search-button">
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-          <div class="col-4 form-group">
-            <select name="" id="" class="form-control">
-              <option>A > Z</option>
-              <option>Z > A</option>
-              <option>類別</option>
-              <option>地區</option>
+        <div class="input-group mr-1">
+          <div class="input-group-prepend">
+            <select name="sort" id="sort" class="form-control">
+              <option value="a_to_z" {{compare 'a_to_z' sortBy}}>A > Z</option>
+              <option value="z_to_a" {{compare 'z_to_a' sortBy}}>Z > A</option>
+              <option value="category" {{compare 'category' sortBy}}>類別</option>
+              <option value="location" {{compare 'location' sortBy}}>地區</option>
             </select>
+          </div>
+          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
+            value="{{keyword}}" aria-describedby="search-button">
+          <div class="input-group-append" style="min-height: ;">
+            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
         </div> 
       </form>
