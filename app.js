@@ -6,6 +6,8 @@ const routes = require('./modules')
 const app = express()
 const port = 3000
 
+require('./config/mongoose')
+
 //setting template engine
 app.engine('handlebars', exphbs({ 
   defaultLayout: 'main',
