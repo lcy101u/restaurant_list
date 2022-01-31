@@ -7,6 +7,7 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 //setting template engine
@@ -28,6 +29,7 @@ app.use(session({
 app.use(express.static('public')) //告訴express靜態檔案是放在名為 public 的資料夾中
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
+usePassport(app)
 app.use(routes)
 
 //start and listening on the Express server
