@@ -30,6 +30,11 @@ app.use(express.static('public')) //告訴express靜態檔案是放在名為 pub
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 app.use(routes)
 
 //start and listening on the Express server
