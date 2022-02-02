@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongoDB = 'mongodb://localhost/restaurant'
+const mongoDB = process.env.MONGODB_URI 
 mongoose.connect(mongoDB)
 
 const db = mongoose.connection

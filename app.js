@@ -5,9 +5,13 @@ const methodOverride = require('method-override')
 const routes = require('./modules')
 const session = require('express-session')
 const flash = require('connect-flash')
-const app = express()
-const port = 3000
 
+//如果應用程式不是在「正式上線模式 (production mode)」中執行，就透過 dotenv 去讀取在 env 檔案裡的資訊。
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+const app = express()
+const port = process.env.PORT
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 
@@ -22,7 +26,7 @@ app.engine('handlebars', exphbs({
 }))
 app.set('view engine', 'handlebars')
 app.use(session({
-  secret: 'RestaurantSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
