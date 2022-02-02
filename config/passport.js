@@ -8,14 +8,14 @@ module.exports = app => {
   app.use(passport.session())
 
   //Local 驗證
-  passport.use(new LocalStrategy({ usernameField: 'email'}, (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if(!user) {
-          return done(null, false, { message: 'This email is not register.' })
+          return done(null, false, { type:'warning_msg', message: 'email 尚未註冊。' })
         }
         if(password !== user.password) {
-          return done(null, false, { message: 'Password incorrect.' })
+          return done(null, false, { type:'warning_msg', message: '密碼錯誤。' })
         }
         return done(null, user)
       })

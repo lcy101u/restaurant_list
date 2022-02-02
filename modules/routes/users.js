@@ -11,7 +11,8 @@ router
   })
   .post(passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash: true
   }))
 
 //register
@@ -22,23 +23,35 @@ router
   })
   .post((req, res) => {
     const { name, email, password, confirmPassword } = req.body
-    console.table(req.body)
+    const errors = []
+    if(!name || !email || !password || !confirmPassword) {
+      errors.push({ message: '所有欄位都是必填！' })
+    }
+    if(password !== confirmPassword) {
+      errors.push({ message: '密碼與確認密碼不相符。' })
+    }
+    //如果error直接返回
+    if(errors.length) {
+      return res.render('register', { errors, name, email, password, confirmPassword })
+    }
     User.findOne({ email })
       .then(user => {
         if(user) {
-          console.log('User already exists!')
-          res.render('register', { name, email, password, confirmPassword })
-        } else {
-          return User.create({name, email, password})
-            .then(() => res.redirect('/'))
-            .catch(err => console.err(err))
-        }
+          errors.push({ message: '此email已被註冊。' })
+          return res.render('register', { errors, name, email, password, confirmPassword })
+        } 
+
+        return User.create({name, email, password})
+          .then(() => res.redirect('/'))
+          .catch(err => console.err(err))
+        
       })
   })
 
 //logout
 router.get('/logout', (req, res) => {
   req.logout() //passport 提供的function，會清除session
+  req.flash('success_msg', '已成功登出！')
   res.redirect('/users/login')
 })
 
