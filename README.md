@@ -1,4 +1,5 @@
 # Restaurant List 
+![Login Page](./public/img/Login.png)
 ![Main Page](./public/img/Home.png)
 ![Add Page](./public/img/Add.png)
 ## About
@@ -6,6 +7,8 @@ Gather my favorite restaurants so far
 
 ## Features
 
+- User can register an account via email or facebook or github
+- User can manage his own content after login
 - Check all the restaurants
 - Restaurant details
 - Search restaurant via name or category
@@ -57,6 +60,7 @@ localhost:3000
 - font-awesome (5.8.1)
 - mongoose (6.1.0)
 - mongoDB (6.14.11)
+- passport (0.5.2)
 
 ### Contributor
 
